@@ -26,3 +26,9 @@ class Member(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        # сохранение в поле username поле email
+        self.username = self.email
+
+        super().save(*args, **kwargs)
