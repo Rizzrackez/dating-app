@@ -1,6 +1,9 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from pathlib import Path
+from PIL import Image
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,3 +35,16 @@ class Member(AbstractUser):
         self.username = self.email
 
         super().save(*args, **kwargs)
+
+        # обработка исключения при создании суперпользователя
+        try:
+            img = Image.open(self.avatar.path)
+
+            watermark = Image.open(os.path.join(BASE_DIR, 'media/watermark.png'))
+
+            position = (img.width - watermark.width, img.height - watermark.height)
+
+            img.paste(watermark, position)
+            img.save(self.avatar.path)
+        except ValueError:
+            pass
