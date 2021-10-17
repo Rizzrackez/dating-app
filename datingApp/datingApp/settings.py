@@ -100,3 +100,12 @@ AUTH_USER_MODEL = 'backend.Member'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = "maksim6info@gmail.com"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# пароль от email аккаунта
+EMAIL_HOST_PASSWORD = "****"
