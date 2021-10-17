@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 
 from backend.models import Member
 from backend.serializers import MemberCreateSerializer
@@ -51,3 +51,9 @@ class RatingAnotherMember(APIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class ListMembers(ListAPIView):
+    queryset = Member.objects.all()
+    serializer_class = MemberCreateSerializer
+    filterset_fields = ['gender', 'name', 'surname']
