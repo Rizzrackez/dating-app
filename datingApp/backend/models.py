@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from pathlib import Path
 from PIL import Image
+import random
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +23,8 @@ class Member(AbstractUser):
     surname = models.CharField(max_length=128)
     email = models.EmailField(max_length=254, unique=True, blank=False)
     liked_members = models.ManyToManyField('Member', blank=True, related_name='members')
+    length = models.IntegerField()
+    width = models.IntegerField()
 
     USERNAME_FIELD = 'email'
 
@@ -33,6 +36,9 @@ class Member(AbstractUser):
     def save(self, *args, **kwargs):
         # сохранение в поле username поле email
         self.username = self.email
+
+        self.length = random.randint(1, 1000)
+        self.width = random.randint(1, 1000)
 
         super().save(*args, **kwargs)
 
