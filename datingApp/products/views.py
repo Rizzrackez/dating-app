@@ -14,7 +14,6 @@ class ParseCategories(APIView):
         url = 'https://www.citilink.ru/catalog/'
         r = requests.get(url)
         soup = BeautifulSoup(r.text, 'html.parser')
-
         for a in soup.find_all('a', class_='CatalogLayout__link_level-1'):
             url = a['href']
             name = a.find('span', class_='CatalogLayout__category-title').getText()
@@ -25,7 +24,6 @@ class ParseCategories(APIView):
 
             category_level_1 = CategoryLevel1(name=name, url=url)
             category_level_1.save()
-
             for a in soup.find_all('a', class_='CatalogCategoryCard__link'):
                 url = a['href']
                 name = a.getText()
