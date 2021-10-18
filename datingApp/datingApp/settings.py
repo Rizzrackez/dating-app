@@ -12,6 +12,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'backend',
+    'products',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
